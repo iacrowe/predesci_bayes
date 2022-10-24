@@ -5,7 +5,7 @@ library(cmprsk)
 
 ## Data load
 predesci <- 
-  read_csv("predesci_data.csv") %>%
+  read_csv("predesci_estimated_data.csv") %>%
   mutate(
     binary = if_else(outcome == 1, 1, 0),
     group_num = if_else(group == "bb", 0, 1)
@@ -54,7 +54,6 @@ predesci_plot <-
   ylim(0, 0.5) +
   theme_classic() +
   theme(legend.position = "none") +
-  # annotate("text", x = 8, y = 0.40, label = glue::glue("p = {p_val}"))  +
   annotate("text", x = 55, y = 0.44, label = "Placebo", colour = "#e76254") +
   annotate("text", x = 55, y = 0.24, label = expression(beta ~ " blocker"), colour = "#1e466e") +
   annotate("text", x = 0, y = 0.48, 
