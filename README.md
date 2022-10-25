@@ -15,3 +15,8 @@ This script runs the Bayesian reanalysis.  The first step is to fit the Bayesian
 
 ## 03_posterior_distributions
 Outputs of the Bayes reanalyses for the three priors plotted.  Tabulated outcomes available from the summary tables, e.g."outstanding".
+
+## 04_single_trial_simulation
+This script runs a single trial including 2,000 patients with compensated cirrhosis at risk of decompensation.  The illustrated example has the annual probability of decompensation set at 0.05.  This can be adjusted as needed.  Simulations of this size take approximately 30 seconds to run.  There is, I'm sure, a more efficient way to run these simulations.  A plot of a single trial, annotated with the decompensation-free lifespan gain is produced.
+
+
