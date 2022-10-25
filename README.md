@@ -2,6 +2,8 @@
 
 The purpose of this project was to provide a Bayesian interpretation of the PREDESCI trial. This was supplemented with probabilistic simulations to understand the implications of changed hazard estimates. The following files are included to allow the analyses to be repeated in full.
 
+The intention is that the scripts are run in sequence, 00_... to 05_..., although all the outputs necessary from previous scripts are provided so later ones will run independently.
+
 ## 00_predesci_data
 
 This file allows analysis of data extracted from figure 2 and supporting text of the index publication. Two endpoints are considered: 'binary', cause specific decompensation / liver-related mortality; and 'outcome', decompensation / liver-related before death from another cause to allow competing risk estimates. In the estimated data, the outcomes are coded, 0 = censored, 1 = decompensation / liver-related death, 2 = transplant, and 3 = death before decompensation.
@@ -30,4 +32,4 @@ A plot of a single trial, annotated with the decompensation-free lifespan gain i
 
 This script extends 04_single_trial_simulation to allow a probabilistic simulation according to the distribution of the posterior HR for the moderate neutral("sceptical") prior or the moderate optimistic prior. In the manuscript we simulate 250 trials, each containing 2,000 participants. This takes a long time and in this example, the defaults are set to 20 trials including 200 participants.
 
-A plot of multiple trials, comparing the two relevant posterior hazard ratio distributions at the annual probability of decompensation of 0.05, is produced.
+A example plot of multiple trials, comparing the two relevant posterior hazard ratio distributions at the annual probability of decompensation of 0.05, is produced.
