@@ -9,6 +9,7 @@ posteriors <- read_csv("posteriors.csv")
 
 
 ## Posteriors
+## Posteriors
 post_prob <-
   posteriors %>%
   pivot_longer(
@@ -18,14 +19,15 @@ post_prob <-
   ) %>% 
   mutate(
     outcome = if_else(log_hr < 0, "benefit", "harm"),
-    rope = if_else(log_hr > log(1 / 1.1) & log_hr < log(1.1), "rope", "not"),
-    better_rope = if_else(log_hr < log(1 / 1.1), "clin_sig_benefit", "none"),
+    rope = if_else(log_hr >= log(0.85) & log_hr <= log(1.1), "rope", "not"),
+    better_rope = if_else(log_hr < log(0.85), "clin_sig_benefit", "none"),
     outstanding = 
       case_when(
-        log_hr < log(0.7) ~ "benefit",
-        log_hr > log(1.3) ~ "harm",
+        log_hr < log(0.5) ~ "benefit",
+        log_hr > log(1.1) ~ "harm",
         TRUE ~ "none")
   )
+
 
 ## probability summaries
 prob_out <-
