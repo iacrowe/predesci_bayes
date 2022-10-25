@@ -9,6 +9,7 @@ posteriors <- read_csv("posteriors.csv")
 
 
 ## Posteriors
+## Posteriors
 post_prob <-
   posteriors %>%
   pivot_longer(
@@ -18,14 +19,15 @@ post_prob <-
   ) %>% 
   mutate(
     outcome = if_else(log_hr < 0, "benefit", "harm"),
-    rope = if_else(log_hr > log(1 / 1.1) & log_hr < log(1.1), "rope", "not"),
-    better_rope = if_else(log_hr < log(1 / 1.1), "clin_sig_benefit", "none"),
+    rope = if_else(log_hr >= log(0.85) & log_hr <= log(1.1), "rope", "not"),
+    better_rope = if_else(log_hr < log(0.85), "clin_sig_benefit", "none"),
     outstanding = 
       case_when(
-        log_hr < log(0.7) ~ "benefit",
-        log_hr > log(1.3) ~ "harm",
+        log_hr < log(0.5) ~ "benefit",
+        log_hr > log(1.1) ~ "harm",
         TRUE ~ "none")
   )
+
 
 ## probability summaries
 prob_out <-
@@ -79,7 +81,7 @@ neutral_plot <-
       mean = neutral_mean[[1,1]],
       sd = neutral_sd[[1,1]]),
     fill = "#528fad",
-    xlim = c(-1.8, log(1 / 1.1))
+    xlim = c(-1.8, log(0.85))
   ) +
   geom_area(
     stat = "function", fun = dnorm,
@@ -87,7 +89,7 @@ neutral_plot <-
       mean = neutral_mean[[1,1]],
       sd = neutral_sd[[1,1]]),
     fill = "#528fad", alpha = 0.5,
-    xlim = c(log(1 / 1.1), 0)
+    xlim = c(log(0.85), 0)
   ) +
   geom_area(
     stat = "function", fun = dnorm,
@@ -153,7 +155,7 @@ optimistic_plot <-
       mean = optimistic_mean[[1,1]],
       sd = optimistic_sd[[1,1]]),
     fill = "#528fad",
-    xlim = c(-1.8, log(1 / 1.1))
+    xlim = c(-1.8, log(0.85))
   ) +
   geom_area(
     stat = "function", fun = dnorm,
@@ -161,7 +163,7 @@ optimistic_plot <-
       mean = optimistic_mean[[1,1]],
       sd = optimistic_sd[[1,1]]),
     fill = "#528fad", alpha = 0.5,
-    xlim = c(log(1 / 1.1), 0)
+    xlim = c(log(0.85), 0)
   ) +
   geom_area(
     stat = "function", fun = dnorm,
@@ -177,7 +179,7 @@ optimistic_plot <-
       mean = optimistic_mean[[1,1]],
       sd = optimistic_sd[[1,1]]),
     fill = "#ef8a47",
-    xlim = c(log(1.1),0.7)
+    xlim = c(log(1.1), 0.7)
   ) +
   geom_vline(
     xintercept = 0
@@ -226,7 +228,7 @@ pessimistic_plot <-
       mean = pessimistic_mean[[1,1]],
       sd = pessimistic_sd[[1,1]]),
     fill = "#528fad",
-    xlim = c(-1.8, log(1 / 1.1))
+    xlim = c(-1.8, log(0.85))
   ) +
   geom_area(
     stat = "function", fun = dnorm,
@@ -234,7 +236,7 @@ pessimistic_plot <-
       mean = pessimistic_mean[[1,1]],
       sd = pessimistic_sd[[1,1]]),
     fill = "#528fad", alpha = 0.5,
-    xlim = c(log(1 / 1.1), 0)
+    xlim = c(log(0.85), 0)
   ) +
   geom_area(
     stat = "function", fun = dnorm,
@@ -282,3 +284,4 @@ jpeg("poterior_plot.jpeg", width = 4, height = 10, units = "in", res = 300)
 neutral_plot / optimistic_plot / pessimistic_plot +
   plot_annotation(tag_levels = 'A')
 dev.off()
+
